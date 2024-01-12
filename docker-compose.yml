@@ -1,0 +1,30 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3060:3060"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongo
+    command: ["npm", "run", "dev"]
+    networks:
+      - my-network
+  mongo:
+    image: mongo
+    ports:
+      - "27020:27017"   # "HOST_PORT:CONTAINER_PORT"
+    networks:
+      - my-network  
+
+volumes:
+  trip_project_volume:
+
+networks:
+  my-network:
+    driver: bridge

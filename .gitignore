@@ -1,0 +1,10 @@
+/public/excel
+/public/uploads
+.env
+/node_modules
+yarn.lock
+!public/photos/
+.idea
+.idea/*
+pattern_code.txt
+/build
