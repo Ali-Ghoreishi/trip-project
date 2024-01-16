@@ -12,7 +12,7 @@ services:
       - .:/usr/src/app
     depends_on:
       - mongo
-    command: ["npm", "run", "dev"]
+    command: ["npm", "run", "devDocker"]
     networks:
       - my-network
   mongo:

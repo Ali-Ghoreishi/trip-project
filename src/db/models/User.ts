@@ -1,4 +1,5 @@
-import bcrypt from 'bcrypt';
+var bcrypt = require('bcrypt');
+// import * as argon2 from "argon2";
 import { Schema, model, Types } from 'mongoose';
 
 import { StatusEnum } from '../../types/custom/enum';
@@ -54,7 +55,7 @@ const userSchema = new Schema<IUser>(
       maxlength: 255,
       unique: true,
       required: true
-    },
+    }, 
     password: {
       type: String,
       trim: true,
@@ -161,6 +162,7 @@ userSchema.pre('save', async function (next: any) {
     let user = this
     const password = user.password;
     if (!user.isModified('password')) return next();
+    // const hash = await argon2.hash(password);
     const hash = await bcrypt.hash(password, 10);
     user.password = hash;
     next();

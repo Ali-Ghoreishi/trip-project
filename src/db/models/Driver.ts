@@ -1,10 +1,10 @@
-import bcrypt from 'bcrypt';
+var bcrypt = require('bcrypt');
+// import * as argon2 from 'argon2';
 import { Schema, model, Types } from 'mongoose';
 
 import { StatusEnum } from '../../types/custom/enum';
 import { IUser } from './User';
 import { ICar } from './Car';
-
 
 export interface IDriverInput {
   ID: string;
@@ -196,6 +196,7 @@ driverSchema.pre('save', async function (next: any) {
     const password = driver.password;
     if (!driver.isModified('password')) return next();
     const hash = await bcrypt.hash(password, 10);
+    // const hash = await argon2.hash(password);
     driver.password = hash;
     next();
   } catch (error) {

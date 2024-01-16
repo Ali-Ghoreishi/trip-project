@@ -25,7 +25,8 @@ export async function createUser(input: IUserInput, options: QueryOptions = {}) 
     doc = doc.toJSON();
     return doc;
   } catch (e: any) {
-    throw new Error(e);
+    console.log(e);
+    return null
   }
 }
 

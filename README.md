@@ -39,7 +39,7 @@ notice: The required changes should also be applied to the server
 Project implementation steps : 
    - docker-compose up    development
    - docker run           production
-   - 
+   - docker-compose up --build
    - 
    - 
 

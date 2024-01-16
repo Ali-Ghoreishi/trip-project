@@ -13,7 +13,7 @@ import { connectDB } from './db/config/connection';
 // import { cronJobFunc } from './components/cronJobs';
 
 //* Configs
-dotenv.config();
+dotenv.config(); 
 
 //* database connection
 connectDB();

@@ -1,24 +1,22 @@
-import bcrypt from 'bcrypt';
+var bcrypt = require('bcrypt');
 import { Schema, model, Types } from 'mongoose';
 
 import { StatusEnum } from '../../types/custom/enum';
 import { IUser } from './User';
 import { IDriver } from './Driver';
 
-
 // export enum CarColorEnum {
 //   red = ''
 // }
-
 
 export interface ICarInput {
   ID: string;
   driver_id: Types.ObjectId | IDriver;
   service_id: Types.ObjectId; // | IService;
   model: string;
-  chassis_number: string
-  color: string
-  year: number
+  chassis_number: string;
+  color: string;
+  year: number;
   plaque: {
     part1: string;
     part2: string;
@@ -156,7 +154,6 @@ const carSchema = new Schema<ICar>(
 //* Mongoose.Pre
 
 //* Index
-
 
 const Car = model<ICar>('Car', carSchema);
 export default Car;
