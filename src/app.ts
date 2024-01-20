@@ -1,4 +1,5 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
+import 'reflect-metadata';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import * as fs from 'fs';
@@ -98,7 +99,7 @@ app.use((err: Error_, req: Request, res: Response, next: NextFunction) => {
   res.status(err.status || 500);
   res.json({
     message: err.message,
-    error: {}
+    error: err.data
   });
 });
 

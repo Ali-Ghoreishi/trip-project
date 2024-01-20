@@ -15,9 +15,9 @@ import {
   MinLength,
   MaxLength
 } from 'class-validator';
+import { CVIsMobile } from '../base';
 
-
-export class loginByUsernamePassword_validator {
+export class LoginByUsernamePassword_validator {
   // @IsString({ message: 'username should be a string' })
   @MaxLength(30, { message: '30' })
   @MinLength(6, { message: '6' })
@@ -32,4 +32,12 @@ export class loginByUsernamePassword_validator {
   password!: string;
 }
 
-
+export class LoginByMobileSendCode_validator {
+  @CVIsMobile('mobile' /* , { message: 'please enter valid mobile' } */)
+  @MaxLength(11, { message: '11' })
+  @MinLength(10, { message: '10' })
+  @IsString()
+  @IsNotEmpty()
+  mobile!: string;
+}
+ 

@@ -23,20 +23,20 @@ export default class ResponseHandler {
     let message = res.t(`classValidator.${firstKey}`, { name: res.t(`field.${errors[0].property}`) });
     const errorKeyArray = ['minLength', 'maxLength', 'min', 'max'];
     if (errorKeyArray.includes(firstKey)) {
-      message = res.t(`classValidator.${firstKey}`, { name: res.t(`field.${errors[0].property}`), value: firstValue })
-    } 
+      message = res.t(`classValidator.${firstKey}`, { name: res.t(`field.${errors[0].property}`), value: firstValue });
+    }
     return res.status(400).json({
-        message: message,
-        field: errors[0].property
-      });
+      message: message,
+      field: errors[0].property
+    });
   }
 
-  static catchError(res: Response, err: Error | unknown) {
-    console.log('********************************');
-    console.log(err);
-    console.log('********************************');
-
-    ResponseHandler.customError(res, res.t('Internall', { scope: 'Server' }), 500, '-', err);
-    throw err;
+  static catchError(res: Response, err: any) {
+    if (err.name === 'CustomError') {
+      return ResponseHandler.customError(res, err.message, err.status, '-', err.Data || []);
+    } else {
+      ResponseHandler.customError(res, res.t('statusCode.500'), 500, '-', []);
+      throw err;
+    }
   }
 }

@@ -1,4 +1,4 @@
-var bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 import { Schema, model, Types } from 'mongoose';
 
 import { StatusEnum } from '../../types/custom/enum';

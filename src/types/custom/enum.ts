@@ -1,6 +1,6 @@
 export enum StaticRoleEnum {
-  admin = 'ادمین',
-  driver = 'راننده خودرو'
+  Admin = 'Admin',
+  Driver = 'Driver'
 }
 
 export enum StatusEnum {

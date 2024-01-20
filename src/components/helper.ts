@@ -15,7 +15,7 @@ const Helper = {
     } else if (process.env.NODE_ENV === 'production') {
       return process.env.MONGO_URI_SERVER;
     } else {
-      return null
+      return null;
     }
   },
 

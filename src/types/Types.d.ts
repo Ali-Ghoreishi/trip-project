@@ -4,6 +4,7 @@ import express, { Application, Request, Response, NextFunction } from 'express';
 declare global {
   interface Error_ extends Error {
     status?: number; 
+    data?: any
   }
   interface IErrorObject_ {
     details: Array<any>;

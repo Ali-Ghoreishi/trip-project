@@ -3,18 +3,14 @@ import { Schema, model, Types } from 'mongoose';
 
 import { StatusEnum } from '../../types/custom/enum';
 import { IUser } from './User';
-import { ICar } from './Car';
 
-export interface IDriverInput {
+export interface IPassengerInput {
   ID: string;
-  car_id: Types.ObjectId | ICar;
   username: string;
   password: string;
   fullname: string;
   email: string;
   mobile: string;
-  address: string;
-  ip: string;
   photo_url: string;
   description: string;
   location: Location_;
@@ -32,13 +28,12 @@ export interface IDriverInput {
   status: Status_;
 }
 
-export interface IDriver extends IDriverInput {
+export interface IPassenger extends IPassengerInput {
   _id: Types.ObjectId;
   credit: number;
   fcmToken: string;
-  sessionid: string;
   deleted: boolean;
-  lastLoginAt: number
+  lastLoginAt: number;
   createdAt: number;
   updatedAt: number;
 
@@ -48,7 +43,7 @@ export interface IDriver extends IDriverInput {
 }
 
 //* Mongoose Schema
-const driverSchema = new Schema<IDriver>(
+const passengerSchema = new Schema<IPassenger>(
   {
     ID: {
       type: String,
@@ -56,11 +51,6 @@ const driverSchema = new Schema<IDriver>(
       maxlength: 255,
       unique: true,
       required: true
-    },
-    car_id: {
-      type: Schema.Types.ObjectId,
-      ref: 'Car',
-      default: null
     },
     username: {
       type: String,
@@ -93,16 +83,6 @@ const driverSchema = new Schema<IDriver>(
       maxlength: 11,
       required: true
     },
-    address: {
-      type: String,
-      maxlength: 255,
-      default: null
-    },
-    ip: {
-      type: String,
-      maxlength: 255,
-      default: null
-    },
     photo_url: {
       type: String,
       maxlength: 500,
@@ -112,10 +92,6 @@ const driverSchema = new Schema<IDriver>(
       type: String,
       maxlength: 500,
       default: null
-    },
-    credit: {
-      type: Number,
-      default: 0
     },
     location: {
       type: Object,
@@ -136,22 +112,15 @@ const driverSchema = new Schema<IDriver>(
         default: null
       }
     },
+    credit: {
+      type: Number,
+      default: 0
+    },
     fcmToken: {
       type: String,
       default: null
     },
-    sessionid: {
-      // storage mechanism to keep track of active user sessions
-      type: String,
-      maxlength: 500,
-      default: null
-    },
     extraData: {
-      // creator_id: {
-      //   type: Schema.Types.ObjectId,
-      //   ref: 'User',
-      //   default: null
-      // },
       updater_id: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -170,7 +139,7 @@ const driverSchema = new Schema<IDriver>(
     status: {
       type: String,
       enum: StatusEnum,
-      default: StatusEnum.deactive
+      default: StatusEnum.active
     },
     deleted: {
       type: Boolean,
@@ -189,18 +158,18 @@ const driverSchema = new Schema<IDriver>(
   },
   {
     timestamps: true,
-    collection: 'Users'
+    collection: 'Passengers'
   }
 );
 
 //* Mongoose.Pre
-driverSchema.pre('save', async function (next: any) {
+passengerSchema.pre('save', async function (next: any) {
   try {
-    let driver = this;
-    const password = driver.password;
-    if (!driver.isModified('password')) return next();
+    let passenger = this;
+    const password = passenger.password;
+    if (!passenger.isModified('password')) return next();
     const hash = await bcrypt.hash(password, 10);
-    driver.password = hash;
+    passenger.password = hash;
     next();
   } catch (error) {
     return next(error);
@@ -208,7 +177,7 @@ driverSchema.pre('save', async function (next: any) {
 });
 
 //* Index
-driverSchema.index({ location: '2dsphere' });
+passengerSchema.index({ location: '2dsphere' });
 
-const Driver = model<IDriver>('Driver', driverSchema);
-export default Driver;
+const Passenger = model<IPassenger>('Passenger', passengerSchema);
+export default Passenger;

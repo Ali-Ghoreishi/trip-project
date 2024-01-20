@@ -1,8 +1,9 @@
-import { /* DocumentDefinition, */ FilterQuery, UpdateQuery, Types, QueryOptions, ClientSession } from 'mongoose';
-
-// import { omit } from 'lodash';
+import { /*DocumentDefinition, */ FilterQuery, UpdateQuery, Types, QueryOptions, ClientSession, model } from 'mongoose';
 
 import User, { IUser, IUserInput } from '../db/models/User';
+// import ErrorHandler from '../components/errorHandler';
+
+const model_ = 'User';
 
 export async function createUser(input: IUserInput, options: QueryOptions = {}) {
   try {
@@ -25,8 +26,10 @@ export async function createUser(input: IUserInput, options: QueryOptions = {}) 
     doc = doc.toJSON();
     return doc;
   } catch (e: any) {
-    console.log(e);
-    return null
+    // console.log(
+    //   `Error --> ${model_} Service - create${model_}: \n${e}\n*** Error *** ---------------------------------------`
+    // );
+    throw e;
   }
 }
 
@@ -44,7 +47,10 @@ export async function findUsers(
     const result = { count, data };
     return result;
   } catch (e: any) {
-    throw new Error(e);
+    // console.log(
+    //   `Error --> ${model_} Service - find${model_}s: \n${e}\n*** Error *** ---------------------------------------`
+    // );
+    throw e;
   }
 }
 
@@ -57,36 +63,45 @@ export async function findUser(
   try {
     return await User.findOne(query, fields, options).populate(populateOption[0]).populate(populateOption[1]);
   } catch (e: any) {
-    throw new Error(e);
+    // console.log(
+    //   `Error --> ${model_} Service - find${model_}: \n${e}\n*** Error *** ---------------------------------------`
+    // );
+    throw e;
   }
 }
 
-export async function findUserById(
-  id: string | Types.ObjectId,
-  fields: string | null = null,
-  options: QueryOptions = {},
-  populateOption: Array<any> = ['', '']
-) {
-  try {
-    return await User.findById(id, fields, options).populate(populateOption[0]).populate(populateOption[1]);
-  } catch (e: any) {
-    throw new Error(e);
-  }
-}
+// export async function findUserById(
+//   id: string | Types.ObjectId,
+//   fields: string | null = null,
+//   options: QueryOptions = {},
+//   populateOption: Array<any> = ['', '']
+// ) {
+//   try {
+//     return await User.findById(id, fields, options).populate(populateOption[0]).populate(populateOption[1]);
+//   } catch (e: any) {
+//     console.log(
+//       `Error --> ${model_} Service - find${model_}ById: \n${e}\n*** Error *** ---------------------------------------`
+//     );
+// throw e;
+//   }
+// }
 
-export async function findUserByIdAndUpdate(
-  id: string | Types.ObjectId,
-  update: UpdateQuery<IUser>,
-  options: QueryOptions = { new: true },
-  populateOption: Array<any> = ['', '']
-) {
-  try {
-    await User.validate(update);
-    return await User.findByIdAndUpdate(id, update, options).populate(populateOption[0]).populate(populateOption[1]);
-  } catch (e: any) {
-    throw new Error(e);
-  }
-}
+// export async function findUserByIdAndUpdate(
+//   id: string | Types.ObjectId,
+//   update: UpdateQuery<IUser>,
+//   options: QueryOptions = { new: true },
+//   populateOption: Array<any> = ['', '']
+// ) {
+//   try {
+//     await User.validate(update);
+//     return await User.findByIdAndUpdate(id, update, options).populate(populateOption[0]).populate(populateOption[1]);
+//   } catch (e: any) {
+//     console.log(
+//       `Error --> ${model_} Service - find${model_}ByIdAndUpdate: \n${e}\n*** Error *** ---------------------------------------`
+//     );
+// throw e;
+//   }
+// }
 
 export async function findAndUpdateUser(
   query: FilterQuery<IUser> = {},
@@ -98,6 +113,26 @@ export async function findAndUpdateUser(
     await User.validate(update);
     return await User.findOneAndUpdate(query, update, options).populate(populateOption[0]).populate(populateOption[1]);
   } catch (e: any) {
-    throw new Error(e);
+    // console.log(
+    //   `Error --> ${model_} Service - findAndUpdate${model_}: \n${e}\n*** Error *** ---------------------------------------`
+    // );
+    throw e;
+  }
+}
+
+export async function updateManyUser(
+  query: FilterQuery<IUser> = {},
+  update: FilterQuery<IUser>,
+  options: QueryOptions = { new: true },
+  populateOption: Array<any> = ['', '']
+) {
+  try {
+    await User.validate(update);
+    return await User.updateMany(query, update, options).populate(populateOption[0]).populate(populateOption[1]);
+  } catch (e: any) {
+    // console.log(
+    //   `Error --> ${model_} Service - updateMany${model_}: \n${e}\n*** Error *** ---------------------------------------`
+    // );
+    throw e;
   }
 }

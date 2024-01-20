@@ -1,16 +1,13 @@
-class ErrorHandler extends Error {
-  message;
-  status;
-  code;
-
-  constructor(msg: string, status: number, code: string) {
-    super(msg);
-    this.message = msg;
-    this.status = status || 500;
-    if (code) {
-      this.code = code || 'Crash';
-    }
+class CustomError extends Error {
+  constructor(message: string, status = 500, data = []) {
+    super(message);
+    this.name = this.constructor.name;
+    //@ts-ignore
+    this.status = status;
+    //@ts-ignore
+    this.data = data;
+    Error.captureStackTrace(this, this.constructor);
   }
 }
 
-export default ErrorHandler;
+export default CustomError;
