@@ -65,7 +65,6 @@ export async function findAndUpdateCar(
   populateOption: Array<any> = ['', '']
 ) {
   try {
-    await Car.validate(update);
     return await Car.findOneAndUpdate(query, update, options).populate(populateOption[0]).populate(populateOption[1]);
   } catch (e: any) {
     throw e;
@@ -79,7 +78,6 @@ export async function updateManyCar(
   populateOption: Array<any> = ['', '']
 ) {
   try {
-    await Car.validate(update);
     return await Car.updateMany(query, update, options).populate(populateOption[0]).populate(populateOption[1]);
   } catch (e: any) {
     throw e;

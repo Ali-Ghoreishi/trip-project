@@ -6,24 +6,24 @@ import { IUser } from './User';
 import { ICar } from './Car';
 
 export interface IDriverInput {
-  ID: string;
-  car_id: Types.ObjectId | ICar;
+  ID?: string;
+  car_id?: Types.ObjectId | ICar;
   username: string;
   password: string;
   fullname: string;
   email: string;
   mobile: string;
   address: string;
-  ip: string;
+  ip?: string;
   photo_url: string;
   description: string;
-  location: Location_;
-  locationUpdatedAt: number;
-  phoneData: {
+  location?: Location_;
+  locationUpdatedAt?: number;
+  phoneData?: {
     model: string;
     ip: string;
   };
-  extraData: {
+  extraData?: {
     // creator_id: Types.ObjectId | IUser;
     updater_id: Types.ObjectId | IUser;
     remover_id: Types.ObjectId | IUser;

@@ -8,3 +8,4 @@ export enum StatusEnum {
   deactive = 'deactive',
   blocked = 'blocked'
 }
+

@@ -65,7 +65,6 @@ export async function findAndUpdateDriver(
   populateOption: Array<any> = ['', '']
 ) {
   try {
-    await Driver.validate(update);
     return await Driver.findOneAndUpdate(query, update, options)
       .populate(populateOption[0])
       .populate(populateOption[1]);
@@ -81,7 +80,6 @@ export async function updateManyDriver(
   populateOption: Array<any> = ['', '']
 ) {
   try {
-    await Driver.validate(update);
     return await Driver.updateMany(query, update, options).populate(populateOption[0]).populate(populateOption[1]);
   } catch (e: any) {
     throw e;

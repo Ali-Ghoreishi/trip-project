@@ -93,7 +93,6 @@ export async function findUser(
 //   populateOption: Array<any> = ['', '']
 // ) {
 //   try {
-//     await User.validate(update);
 //     return await User.findByIdAndUpdate(id, update, options).populate(populateOption[0]).populate(populateOption[1]);
 //   } catch (e: any) {
 //     console.log(
@@ -110,7 +109,6 @@ export async function findAndUpdateUser(
   populateOption: Array<any> = ['', '']
 ) {
   try {
-    await User.validate(update);
     return await User.findOneAndUpdate(query, update, options).populate(populateOption[0]).populate(populateOption[1]);
   } catch (e: any) {
     // console.log(
@@ -127,7 +125,6 @@ export async function updateManyUser(
   populateOption: Array<any> = ['', '']
 ) {
   try {
-    await User.validate(update);
     return await User.updateMany(query, update, options).populate(populateOption[0]).populate(populateOption[1]);
   } catch (e: any) {
     // console.log(

@@ -12,9 +12,10 @@ require('./components/language/index');
 import localizify, { t as localizifyT } from 'localizify';
 import { connectDB } from './db/config/connection';
 // import { cronJobFunc } from './components/cronJobs';
+import { initSocket } from './socket/listener';
 
 //* Configs
-dotenv.config(); 
+dotenv.config();
 
 //* database connection
 connectDB();
@@ -84,7 +85,6 @@ app.use(xss());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public/views'));
 
-
 //* Routes
 import mainRouter from './routers/index';
 app.use('/', mainRouter);
@@ -109,3 +109,5 @@ const PORT = process.env.APP_PORT || 3060;
 export const server = app.listen(PORT, async () => {
   console.log('Server start listening on: ', server.address());
 });
+
+initSocket();

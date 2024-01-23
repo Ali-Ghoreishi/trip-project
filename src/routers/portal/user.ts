@@ -1,5 +1,4 @@
 import express from 'express';
-const router = express.Router();
 
 // import limiter from '../../../middlewares/secure';
 // import { UploadFileController } from '../../../controllers/v1/common/index';
@@ -10,6 +9,8 @@ import {
 // import { authMiddleware } from '../../../middlewares/authMiddlewares';
 // import auth, { getAllAuth } from '../../../middlewares/userAuther';
 // router.use(authMiddleware.user); // Check User Status - Verify JWT
+
+const router = express.Router();
 
 // //* Token
 // router.get('/refresh-token', AuthController.refreshToken);

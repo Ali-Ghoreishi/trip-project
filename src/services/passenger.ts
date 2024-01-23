@@ -65,7 +65,6 @@ export async function findAndUpdatePassenger(
   populateOption: Array<any> = ['', '']
 ) {
   try {
-    await Passenger.validate(update);
     return await Passenger.findOneAndUpdate(query, update, options)
       .populate(populateOption[0])
       .populate(populateOption[1]);
@@ -81,7 +80,6 @@ export async function updateManyPassenger(
   populateOption: Array<any> = ['', '']
 ) {
   try {
-    await Passenger.validate(update);
     return await Passenger.updateMany(query, update, options).populate(populateOption[0]).populate(populateOption[1]);
   } catch (e: any) {
     throw e;
