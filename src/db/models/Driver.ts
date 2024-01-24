@@ -55,7 +55,6 @@ const driverSchema = new Schema<IDriver>(
       trim: true,
       maxlength: 255,
       unique: true,
-      required: true
     },
     car_id: {
       type: Schema.Types.ObjectId,
@@ -189,7 +188,7 @@ const driverSchema = new Schema<IDriver>(
   },
   {
     timestamps: true,
-    collection: 'Users'
+    collection: 'Drivers'
   }
 );
 

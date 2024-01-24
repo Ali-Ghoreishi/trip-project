@@ -17,13 +17,8 @@ import {
   IsNumber
 } from 'class-validator';
 import { CVIsMobile } from '../base';
-import { IDriverInput } from '../../../db/models/Driver';
 
 export class Register_validator {
-  //   @Length(24)
-  //   @IsString()
-  //   @IsNotEmpty()
-  //   car_id!: IDriverInput['car_id'];
 
   @MaxLength(30, { message: '30' })
   @MinLength(6, { message: '6' })
@@ -53,12 +48,6 @@ export class Register_validator {
   @IsString()
   @IsNotEmpty()
   mobile!: string;
-
-  @MaxLength(50, { message: '50' })
-  @MinLength(5, { message: '5' })
-  @IsString()
-  @IsNotEmpty()
-  address!: string;
 
   @MaxLength(200, { message: '200' })
   @MinLength(1, { message: '1' })

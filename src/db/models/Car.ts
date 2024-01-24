@@ -51,7 +51,6 @@ const carSchema = new Schema<ICar>(
       trim: true,
       maxlength: 255,
       unique: true,
-      required: true
     },
     driver_id: {
       type: Schema.Types.ObjectId,
@@ -147,7 +146,7 @@ const carSchema = new Schema<ICar>(
   },
   {
     timestamps: true,
-    collection: 'Users'
+    collection: 'Cars'
   }
 );
 

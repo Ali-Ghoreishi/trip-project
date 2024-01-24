@@ -50,7 +50,6 @@ const passengerSchema = new Schema<IPassenger>(
       trim: true,
       maxlength: 255,
       unique: true,
-      required: true
     },
     username: {
       type: String,
