@@ -10,13 +10,7 @@ import { LoginByMobileSendCode_validator } from '../../components/classValidator
 export const testController = {
   post: async (req: Request, res: Response) => {
     try {
-      const input = new LoginByMobileSendCode_validator();
-      Object.assign(input, req.body);
-      const inputValidateErrors = await inputValidate(input);
-      if (inputValidateErrors.length > 0) return response.validation(res, inputValidateErrors);
-      if (input.mobile.length === 10) input.mobile = `0${input.mobile}`
-      
-      return response.success(res, { input }, 'ok');
+      return response.success(res, { }, 'ok');
     } catch (error) {
       return response.catchError(res, error);
     }
@@ -24,8 +18,6 @@ export const testController = {
 
   get: async (req: Request, res: Response) => {
     try {
-      // const x = await bcrypt.hash('11111111', 10)
-      // console.log(x);
       return response.success(res, {}, 'ok');
     } catch (error) {
       return response.catchError(res, error);

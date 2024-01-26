@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import { Schema, model, Types } from 'mongoose';
 
 import { StatusEnum } from '../../types/custom/enum';
@@ -10,7 +9,7 @@ import { IDriver } from './Driver';
 // }
 
 export interface ICarInput {
-  ID: string;
+  ID?: string;
   driver_id: Types.ObjectId | IDriver;
   service_id: Types.ObjectId; // | IService;
   model: string;
@@ -24,7 +23,7 @@ export interface ICarInput {
   photo_url: string;
   description: string;
   extraData: {
-    creator_id: Types.ObjectId | IUser;
+    creator_id: Types.ObjectId | IDriver;
     updater_id: Types.ObjectId | IUser;
     remover_id: Types.ObjectId | IUser;
     deletedAt: number;
@@ -110,7 +109,7 @@ const carSchema = new Schema<ICar>(
     extraData: {
       creator_id: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Driver',
         default: null
       },
       updater_id: {

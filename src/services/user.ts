@@ -1,4 +1,4 @@
-import { /*DocumentDefinition, */ FilterQuery, UpdateQuery, Types, QueryOptions, ClientSession, model } from 'mongoose';
+import { /*DocumentDefinition, */ FilterQuery, UpdateQuery, QueryOptions, ClientSession } from 'mongoose';
 
 import User, { IUser, IUserInput } from '../db/models/User';
 // import ErrorHandler from '../components/errorHandler';

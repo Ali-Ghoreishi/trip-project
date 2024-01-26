@@ -1,6 +1,5 @@
 import joi from 'joi';
 import { Request, Response } from 'express';
-import * as argon2 from 'argon2';
 
 import response from '../../../components/responseHandler';
 import User, { IUser } from '../../../db/models/User';

@@ -1,4 +1,4 @@
-import { /*DocumentDefinition, */ FilterQuery, UpdateQuery, Types, QueryOptions, ClientSession, model } from 'mongoose';
+import { /*DocumentDefinition, */ FilterQuery, UpdateQuery, QueryOptions, ClientSession } from 'mongoose';
 
 import Driver, { IDriver, IDriverInput } from '../db/models/Driver';
 

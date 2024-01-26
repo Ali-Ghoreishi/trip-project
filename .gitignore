@@ -8,3 +8,4 @@ yarn.lock
 .idea/*
 pattern_code.txt
 /build
+tasks.txt
