@@ -5,7 +5,7 @@ import { StatusEnum } from '../../types/custom/enum';
 import { IUser } from './User';
 
 export interface IPassengerInput {
-  ID: string;
+  ID?: string;
   username: string;
   password: string;
   fullname: string;
@@ -13,13 +13,13 @@ export interface IPassengerInput {
   mobile: string;
   photo_url: string;
   description: string;
-  location: Location_;
-  locationUpdatedAt: number;
-  phoneData: {
+  location?: Location_;
+  locationUpdatedAt?: number;
+  phoneData?: {
     model: string;
     ip: string;
   };
-  extraData: {
+  extraData?: {
     // creator_id: Types.ObjectId | IUser;
     updater_id: Types.ObjectId | IUser;
     remover_id: Types.ObjectId | IUser;

@@ -18,8 +18,19 @@ import {
 } from 'class-validator';
 import { CVIsMobile } from '../base';
 
-export class Register_validator {
-
+export class RegisterSendCode_validator {
+  @CVIsMobile('mobile')
+  @MaxLength(11, { message: '11' })
+  @MinLength(10, { message: '10' })
+  @IsString()
+  @IsNotEmpty()
+  mobile!: string;
+}
+export class RegisterVerifyCode_validator {
+  @IsNumber()
+  @IsNotEmpty()
+  code!: number;
+  
   @MaxLength(30, { message: '30' })
   @MinLength(6, { message: '6' })
   @IsString()

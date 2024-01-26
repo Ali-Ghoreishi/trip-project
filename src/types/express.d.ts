@@ -6,9 +6,9 @@ import { IUser } from '../db/models/User';
 declare global {
   namespace Express {
     interface Request {
-      // driver?: IDriver;
+      driver?: IDriver;
       user?: IUser;
-      // passenger?: IPassenger;
+      passenger?: IPassenger;
     }
     interface Response {
       t(text1: string, text2?: object): string;

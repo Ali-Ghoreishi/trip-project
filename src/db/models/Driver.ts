@@ -169,7 +169,7 @@ const driverSchema = new Schema<IDriver>(
     status: {
       type: String,
       enum: StatusEnum,
-      default: StatusEnum.deactive
+      default: StatusEnum.active
     },
     deleted: {
       type: Boolean,

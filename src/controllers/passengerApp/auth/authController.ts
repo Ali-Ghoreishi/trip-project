@@ -9,12 +9,12 @@ import {
   LoginByMobileSendCode_validator,
   LoginByMobileVerifyCode_validator,
   LoginByUsernamePassword_validator
-} from '../../../components/classValidator/driver/auth';
+} from '../../../components/classValidator/passenger/auth';
 import { exRedis } from '../../../components/redis/index';
 import { StatusEnum } from '../../../types/custom/enum';
 import { AuthHandler } from '../../../components/auth/index';
-import { createDriver, findDriver } from '../../../services/driver';
-import Driver, { IDriver, IDriverInput } from '../../../db/models/Driver';
+import { createPassenger, findPassenger } from '../../../services/passenger';
+import Passenger, { IPassenger, IPassengerInput } from '../../../db/models/Passenger';
 
 const redis_smsCode = new exRedis('sms_code_', process.env.SMS_CODE_EXPIRE_AFTER);
 
@@ -26,7 +26,7 @@ export const AuthController = {
       const inputValidateErrors = await inputValidate(input);
       if (inputValidateErrors.length > 0) return response.validation(res, inputValidateErrors);
       if (input.mobile.length === 10) input.mobile = `0${input.mobile}`;
-      const checkMobile = await findDriver({ mobile: input.mobile });
+      const checkMobile = await findPassenger({ mobile: input.mobile });
       if (checkMobile)
         return response.customError(res, res.t('crud.already_exist', { name: res.t('field.mobile') }), 409);
       const oldCode = Number(await redis_smsCode.Get(input.mobile));
@@ -37,7 +37,7 @@ export const AuthController = {
         code = Math.floor(Math.random() * 1000000);
         code = code.toString().padStart(6, '7');
       }
-      console.log('@_@ driver registration code is:  ', code, ' @_@');
+      console.log('@_@ passenger registration code is:  ', code, ' @_@');
       await redis_smsCode.Set(input.mobile, code);
       // const phoneNumber = '+98' + input.mobile;
       // sms.sendSms(phoneNumber, SmsTemplate[0], { token: code });
@@ -46,6 +46,7 @@ export const AuthController = {
       return response.catchError(res, err);
     }
   },
+
   registerVerifyCode: async (req: Request, res: Response) => {
     try {
       const input = new RegisterVerifyCode_validator();
@@ -56,22 +57,22 @@ export const AuthController = {
       if (input.mobile.length === 10) input.mobile = `0${input.mobile}`;
       const code = Number(await redis_smsCode.Get(input.mobile));
       if (!code || input.code !== code) return response.customError(res, res.t('auth.wrongCode'), 403);
-      const checkUsername = await findDriver({ username: input.username });
+      const checkUsername = await findPassenger({ username: input.username });
       if (checkUsername)
         return response.customError(res, res.t('crud.already_exist', { name: res.t('field.username') }), 409);
-      const checkEmail = await findDriver({ email: input.email });
+      const checkEmail = await findPassenger({ email: input.email });
       if (checkEmail)
         return response.customError(res, res.t('crud.already_exist', { name: res.t('field.email') }), 409);
-      const checkMobile = await findDriver({ mobile: input.mobile });
+      const checkMobile = await findPassenger({ mobile: input.mobile });
       if (checkMobile)
         return response.customError(res, res.t('crud.already_exist', { name: res.t('field.mobile') }), 409);
 
-      const createData: IDriverInput = {
+      const createData: IPassengerInput = {
         ...input,
         status: StatusEnum.active
       };
-      const driver = await createDriver(createData);
-      return response.success(res, { driver }, res.t('crud.create'));
+      const passenger = await createPassenger(createData);
+      return response.success(res, { passenger }, res.t('crud.create'));
     } catch (err) {
       return response.catchError(res, err);
     }
@@ -84,26 +85,21 @@ export const AuthController = {
       const inputValidateErrors = await inputValidate(input);
       if (inputValidateErrors.length > 0) return response.validation(res, inputValidateErrors);
       input.username = input.username.toLocaleLowerCase();
-      const driver = await findDriver({ username: input.username });
-      if (!driver) return response.customError(res, res.t('crud.notFound', { name: res.t('field.driver') }), 404);
-      if (driver.status !== StatusEnum.active) {
-        if (driver.status === StatusEnum.deactive) return response.customError(res, res.t('auth.deactive'), 403);
-        if (driver.status === StatusEnum.blocked) return response.customError(res, res.t('auth.blocked'), 403);
+      const passenger = await findPassenger({ username: input.username });
+      if (!passenger) return response.customError(res, res.t('crud.notFound', { name: res.t('field.passenger') }), 404);
+      if (passenger.status !== StatusEnum.active) {
+        if (passenger.status === StatusEnum.deactive) return response.customError(res, res.t('auth.deactive'), 403);
+        if (passenger.status === StatusEnum.blocked) return response.customError(res, res.t('auth.blocked'), 403);
       }
-      if (driver.deleted) return response.customError(res, res.t('statusCode.404'), 404);
-      const checkPassword = await Helper.Compare(input.password, driver.password);
+      if (passenger.deleted) return response.customError(res, res.t('statusCode.404'), 404);
+      const checkPassword = await Helper.Compare(input.password, passenger.password);
       if (!checkPassword) return response.customError(res, res.t('auth.wrong_username_password'), 400);
-      if (driver.ip) {
-        if (driver.ip !== req.ip) return response.customError(res, res.t('auth.wrong_ip'), 403);
-      }
-      const token = await AuthHandler.DriverTokenGenerate(driver);
-      // const sessionID = uuidv4();
-      // const updated_driver = await findAndUpdateDriver({ _id: driver._id }, { sessionid: sessionID });
+      const token = await AuthHandler.PassengerTokenGenerate(passenger);
+
       return response.success(
         res,
         {
-          driver,
-          // sessionid: sessionID,
+          passenger,
           token
         },
         res.t('crud.success')
@@ -120,16 +116,13 @@ export const AuthController = {
       const inputValidateErrors = await inputValidate(input);
       if (inputValidateErrors.length > 0) return response.validation(res, inputValidateErrors);
       if (input.mobile.length === 10) input.mobile = `0${input.mobile}`;
-      const driver = await findDriver({ mobile: input.mobile });
-      if (!driver) return response.customError(res, res.t('crud.notFound', { name: res.t('field.driver') }), 404);
-      if (driver.status !== StatusEnum.active) {
-        if (driver.status === StatusEnum.deactive) return response.customError(res, res.t('auth.deactive'), 403);
-        if (driver.status === StatusEnum.blocked) return response.customError(res, res.t('auth.blocked'), 403);
+      const passenger = await findPassenger({ mobile: input.mobile });
+      if (!passenger) return response.customError(res, res.t('crud.notFound', { name: res.t('field.passenger') }), 404);
+      if (passenger.status !== StatusEnum.active) {
+        if (passenger.status === StatusEnum.deactive) return response.customError(res, res.t('auth.deactive'), 403);
+        if (passenger.status === StatusEnum.blocked) return response.customError(res, res.t('auth.blocked'), 403);
       }
-      if (driver.deleted) return response.customError(res, res.t('statusCode.404'), 404);
-      if (driver.ip) {
-        if (driver.ip !== req.ip) return response.customError(res, res.t('auth.wrong_ip'), 403);
-      }
+      if (passenger.deleted) return response.customError(res, res.t('statusCode.404'), 404);
       const oldCode = Number(await redis_smsCode.Get(input.mobile));
       let code: number | string;
       if (oldCode) {
@@ -138,7 +131,7 @@ export const AuthController = {
         code = Math.floor(Math.random() * 1000000);
         code = code.toString().padStart(6, '7');
       }
-      console.log('@_@ driver verification code is:  ', code, ' @_@');
+      console.log('@_@ passenger verification code is:  ', code, ' @_@');
       await redis_smsCode.Set(input.mobile, code);
       // const phoneNumber = '+98' + input.mobile;
       // sms.sendSms(phoneNumber, SmsTemplate[0], { token: code });
@@ -155,23 +148,20 @@ export const AuthController = {
       const inputValidateErrors = await inputValidate(input);
       if (inputValidateErrors.length > 0) return response.validation(res, inputValidateErrors);
       if (input.mobile.length === 10) input.mobile = `0${input.mobile}`;
-      const driver = await findDriver({ mobile: input.mobile });
-      if (!driver) return response.customError(res, res.t('crud.notFound', { name: res.t('field.driver') }), 404);
-      if (driver.status !== StatusEnum.active) {
-        if (driver.status === StatusEnum.deactive) return response.customError(res, res.t('auth.deactive'), 403);
-        if (driver.status === StatusEnum.blocked) return response.customError(res, res.t('auth.blocked'), 403);
+      const passenger = await findPassenger({ mobile: input.mobile });
+      if (!passenger) return response.customError(res, res.t('crud.notFound', { name: res.t('field.passenger') }), 404);
+      if (passenger.status !== StatusEnum.active) {
+        if (passenger.status === StatusEnum.deactive) return response.customError(res, res.t('auth.deactive'), 403);
+        if (passenger.status === StatusEnum.blocked) return response.customError(res, res.t('auth.blocked'), 403);
       }
-      if (driver.deleted) return response.customError(res, res.t('statusCode.404'), 404);
-      if (driver.ip) {
-        if (driver.ip !== req.ip) return response.customError(res, res.t('auth.wrong_ip'), 403);
-      }
+      if (passenger.deleted) return response.customError(res, res.t('statusCode.404'), 404);
       const code = Number(await redis_smsCode.Get(input.mobile));
       if (!code || input.code !== code) return response.customError(res, res.t('auth.wrongCode'), 403);
-      const token = await AuthHandler.DriverTokenGenerate(driver);
+      const token = await AuthHandler.PassengerTokenGenerate(passenger);
       return response.success(
         res,
         {
-          driver,
+          passenger,
           token
         },
         res.t('crud.success')

@@ -1,6 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 
-import { AuthController } from '../../controllers/driverApp/auth/authController';
+import { AuthController } from '../../controllers/passengerApp/auth/authController';
 import limiter from '../../middlewares/rateLimit';
 
 const router = express.Router();
