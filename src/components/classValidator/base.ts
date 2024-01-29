@@ -9,6 +9,7 @@ import {
   IsNotEmpty,
   IsString,
   MinLength,
+  MaxLength,
   IsInt,
   Length,
   IsEmail,
@@ -17,6 +18,7 @@ import {
   Min,
   Max
 } from 'class-validator';
+import { ICarInput } from '../../db/models/Car';
 
 export function CVIsMobile(property: string, validationOptions?: ValidationOptions) {
   return function (object: Record<string, any>, propertyName: string) {
@@ -42,7 +44,31 @@ export function CVIsMobile(property: string, validationOptions?: ValidationOptio
           }
           return true;
         }
-        }
+      }
+    });
+  };
+}
+
+export function CVLength(length: number, validationOptions?: ValidationOptions) {
+  return function (object: Record<string, any>, propertyName: string) {
+    registerDecorator({
+      name: 'cvLength',
+      target: object.constructor,
+      propertyName: propertyName,
+      constraints: [length],
+      options: validationOptions,
+      validator: {
+        validate(value: string, args: ValidationArguments) {
+          const strLength = value.length;
+          if (strLength === length) return true
+          //args.constraints = []; // Attach constraints to arguments for later use
+          return false;
+        },
+        defaultMessage(args: ValidationArguments) {
+          // const [minLength, maxLength] = args.constraints;
+          return `${length}`;
+        },
+      }
     });
   };
 }

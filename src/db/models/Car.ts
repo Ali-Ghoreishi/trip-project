@@ -3,6 +3,7 @@ import { Schema, model, Types } from 'mongoose';
 import { StatusEnum } from '../../types/custom/enum';
 import { IUser } from './User';
 import { IDriver } from './Driver';
+import { IService } from './Service';
 
 // export enum CarColorEnum {
 //   red = ''
@@ -11,7 +12,7 @@ import { IDriver } from './Driver';
 export interface ICarInput {
   ID?: string;
   driver_id: Types.ObjectId | IDriver;
-  service_id: Types.ObjectId; // | IService;
+  service_id: Types.ObjectId | IService;
   model: string;
   chassis_number: string;
   color: string;
@@ -24,22 +25,22 @@ export interface ICarInput {
   description: string;
   extraData: {
     creator_id: Types.ObjectId | IDriver;
-    updater_id: Types.ObjectId | IUser;
-    remover_id: Types.ObjectId | IUser;
-    deletedAt: number;
+    updater_id?: Types.ObjectId | IUser;
+    remover_id?: Types.ObjectId | IUser;
+    deletedAt?: number;
   };
   status: Status_;
 }
 
 export interface ICar extends ICarInput {
-  _id: Types.ObjectId;
-  deleted: boolean;
-  createdAt: number;
-  updatedAt: number;
+  _id?: Types.ObjectId;
+  deleted?: boolean;
+  createdAt?: number;
+  updatedAt?: number;
 
   // custom property - not exist in the schema
-  isModified: any;
-  toJSON: any;
+  isModified?: any;
+  toJSON?: any;
 }
 
 //* Mongoose Schema

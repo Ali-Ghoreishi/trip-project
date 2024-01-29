@@ -16,7 +16,7 @@ import {
   MaxLength,
   IsNumber
 } from 'class-validator';
-import { CVIsMobile } from '../base';
+import { CVIsMobile, CVLength } from '../base';
 import { IDriverInput } from '../../../db/models/Driver';
 
 export class RegisterSendCode_validator {
@@ -25,10 +25,10 @@ export class RegisterSendCode_validator {
   @MinLength(10, { message: '10' })
   @IsString()
   @IsNotEmpty()
-  mobile!: string;
+  mobile!: IDriverInput['mobile'];
 }
 export class RegisterVerifyCode_validator {
-  //   @Length(24)
+  //   @CVLength(24)
   //   @IsString()
   //   @IsNotEmpty()
   //   car_id!: IDriverInput['car_id'];
@@ -41,46 +41,46 @@ export class RegisterVerifyCode_validator {
   @MinLength(6, { message: '6' })
   @IsString()
   @IsNotEmpty()
-  username!: string;
+  username!: IDriverInput['username'];
 
   @MaxLength(30, { message: '30' })
   @MinLength(8, { message: '8' })
   @IsString()
   @IsNotEmpty()
-  password!: string;
+  password!: IDriverInput['password'];
 
   @MaxLength(50, { message: '50' })
   @MinLength(4, { message: '4' })
   @IsString()
   @IsNotEmpty()
-  fullname!: string;
+  fullname!: IDriverInput['fullname'];
 
   @IsEmail()
   @IsNotEmpty()
-  email!: string;
+  email!: IDriverInput['email'];
 
   @CVIsMobile('mobile')
   @MaxLength(11, { message: '11' })
   @MinLength(10, { message: '10' })
   @IsString()
   @IsNotEmpty()
-  mobile!: string;
+  mobile!: IDriverInput['mobile'];
 
   @MaxLength(50, { message: '50' })
   @MinLength(5, { message: '5' })
   @IsString()
   @IsNotEmpty()
-  address!: string;
+  address!: IDriverInput['address'];
 
   @MaxLength(200, { message: '200' })
+  @MinLength(5, { message: '5' })
+  @IsString()
+  photo_url!: IDriverInput['photo_url'];
+
+  @MaxLength(300, { message: '300' })
   @MinLength(1, { message: '1' })
   @IsString()
-  photo_url!: string;
-
-  @MaxLength(30, { message: '30' })
-  @MinLength(6, { message: '6' })
-  @IsString()
-  description!: string;
+  description!: IDriverInput['description'];
 }
 export class LoginByUsernamePassword_validator {
   // @IsString({ message: 'username should be a string' })
@@ -88,13 +88,13 @@ export class LoginByUsernamePassword_validator {
   @MinLength(6, { message: '6' })
   @IsString()
   @IsNotEmpty()
-  username!: string;
+  username!: IDriverInput['username'];
 
   @MaxLength(50, { message: '50' })
   @MinLength(8, { message: '8' })
   @IsString()
   @IsNotEmpty()
-  password!: string;
+  password!: IDriverInput['password'];
 }
 
 export class LoginByMobileSendCode_validator {
@@ -103,7 +103,7 @@ export class LoginByMobileSendCode_validator {
   @MinLength(10, { message: '10' })
   @IsString()
   @IsNotEmpty()
-  mobile!: string;
+  mobile!: IDriverInput['mobile'];
 }
 
 export class LoginByMobileVerifyCode_validator {
@@ -112,7 +112,7 @@ export class LoginByMobileVerifyCode_validator {
   @MinLength(10, { message: '10' })
   @IsString()
   @IsNotEmpty()
-  mobile!: string;
+  mobile!: IDriverInput['mobile'];
 
   @IsNumber()
   @IsNotEmpty()

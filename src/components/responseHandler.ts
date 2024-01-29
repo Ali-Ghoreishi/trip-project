@@ -21,7 +21,7 @@ export default class ResponseHandler {
   static validation(res: Response, errors: any[], field = 'all') {
     const [firstKey, firstValue] = Object.entries(errors[0].constraints)[0];
     let message = res.t(`classValidator.${firstKey}`, { name: res.t(`field.${errors[0].property}`) });
-    const errorKeyArray = ['minLength', 'maxLength', 'min', 'max'];
+    const errorKeyArray = ['cvLength', 'minLength', 'maxLength', 'min', 'max'];
     if (errorKeyArray.includes(firstKey)) {
       message = res.t(`classValidator.${firstKey}`, { name: res.t(`field.${errors[0].property}`), value: firstValue });
     }

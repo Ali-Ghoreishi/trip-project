@@ -22,6 +22,7 @@ import {
 import { Type } from 'class-transformer';
 
 import { rbac } from '../../auth/index';
+import { CVLength } from '../base';
 
 let auther;
 let validObjs = [] as string[];
@@ -57,7 +58,7 @@ export class ListRolePermissions_validator {
 }
 
 export class ListUserPermissions_validator {
-  @Length(24)
+  @CVLength(24)
   @IsString()
   @IsNotEmpty()
   id!: string;
@@ -77,7 +78,7 @@ export class CreateRole_validator {
 }
 
 export class AddRoleToUser_validator {
-  @Length(24)
+  @CVLength(24)
   @IsString()
   @IsNotEmpty()
   user_id!: string;

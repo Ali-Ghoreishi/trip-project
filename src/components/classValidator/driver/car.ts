@@ -5,70 +5,72 @@ import {
   IsEmpty,
   IsNotEmpty,
   IsString,
+  IsObject,
+  ValidateNested,
   Length,
   IsEmail,
   IsDate,
   Min,
+  IsInstance,
   Max,
   MinLength,
   MaxLength,
-  IsNumber
+  IsNumber,
+  IsMongoId
 } from 'class-validator';
-import { CVIsMobile } from '../base';
+import { CVIsMobile, CVLength } from '../base';
 import { ICarInput } from '../../../db/models/Car';
 
 export class RegisterByDriver_validator {
-  //   @Length(24)
-  //   @IsString()
-  //   @IsNotEmpty()
-  //   car_id!: IDriverInput['car_id'];
+  driver_id!: ICarInput['driver_id'];
+  plaque!: ICarInput['plaque'];
+
+  @CVLength(24)
+  @IsMongoId()
+  @IsString()
+  @IsNotEmpty()
+  service_id!: ICarInput['service_id'];
+
+  @MaxLength(50, { message: '50' })
+  @MinLength(1, { message: '1' })
+  @IsString()
+  @IsNotEmpty()
+  model!: ICarInput['model'];
+
+  @MaxLength(100, { message: '100' })
+  @MinLength(1, { message: '1' })
+  @IsString()
+  @IsNotEmpty()
+  chassis_number!: ICarInput['chassis_number'];
+
+  @MaxLength(50, { message: '50' })
+  @MinLength(1, { message: '1' })
+  @IsString()
+  @IsNotEmpty()
+  color!: ICarInput['color'];
 
   @IsNumber()
   @IsNotEmpty()
-  code!: number;
+  year!: ICarInput['year'];
 
-  @MaxLength(30, { message: '30' })
-  @MinLength(6, { message: '6' })
+  @CVLength(6)
   @IsString()
   @IsNotEmpty()
-  username!: string;
+  plaquePart1!: ICarInput['plaque']['part1'];
 
-  @MaxLength(30, { message: '30' })
-  @MinLength(8, { message: '8' })
+  @CVLength(2)
   @IsString()
   @IsNotEmpty()
-  password!: string;
+  plaquePart2!: ICarInput['plaque']['part2'];
 
-  @MaxLength(50, { message: '50' })
-  @MinLength(4, { message: '4' })
-  @IsString()
-  @IsNotEmpty()
-  fullname!: string;
-
-  @IsEmail()
-  @IsNotEmpty()
-  email!: string;
-
-  @CVIsMobile('mobile')
-  @MaxLength(11, { message: '11' })
-  @MinLength(10, { message: '10' })
-  @IsString()
-  @IsNotEmpty()
-  mobile!: string;
-
-  @MaxLength(50, { message: '50' })
+  @MaxLength(200, { message: '200' })
   @MinLength(5, { message: '5' })
   @IsString()
   @IsNotEmpty()
-  address!: string;
+  photo_url!: ICarInput['photo_url'];
 
-  @MaxLength(200, { message: '200' })
+  @MaxLength(300, { message: '300' })
   @MinLength(1, { message: '1' })
   @IsString()
-  photo_url!: string;
-
-  @MaxLength(30, { message: '30' })
-  @MinLength(6, { message: '6' })
-  @IsString()
-  description!: string;
+  description!: ICarInput['description'];
 }

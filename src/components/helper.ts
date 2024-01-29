@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import response from './responseHandler';
 import { formatDate_ } from './jalali';
+import { ICity } from '../db/models/City';
 
 const Helper = {
   GetDatabaseURI: () => {
@@ -364,6 +365,37 @@ const Helper = {
     } else {
       return null;
     }
+  },
+
+  // To calculate the distance between two locations in kilometers
+  CalculateDistanceKM: (location1: { lat: number; long: number }, location2: { lat: number; long: number }) => {
+    const earthRadius = 6371; // Radius of the Earth in kilometers
+    // Convert latitude and longitude from degrees to radians
+    const lat1Rad = location1.lat * (Math.PI / 180);
+    const lon1Rad = location1.long * (Math.PI / 180);
+    const lat2Rad = location2.lat * (Math.PI / 180);
+    const lon2Rad = location2.long * (Math.PI / 180);
+    // Calculate the differences between coordinates
+    const deltaLat = lat2Rad - lat1Rad;
+    const deltaLon = lon2Rad - lon1Rad;
+    // Haversine formula to calculate distance
+    const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(deltaLon / 2) ** 2;
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    // Calculate the distance
+    const distance = earthRadius * c;
+    return distance.toFixed();
+  },
+
+  Trip_CalculateFare: (source: ICity, destination: ICity) => {
+    // const setting = await findSetting()
+    const distanceKM = Helper.CalculateDistanceKM(
+      { lat: source.location.coordinates[1], long: source.location.coordinates[0] },
+      { lat: destination.location.coordinates[1], long: destination.location.coordinates[0] }
+    );
+    const farePerKM = 3000; // setting.farePerKil
+    const fare = +distanceKM * farePerKM;
+    return fare;
   }
 };
 

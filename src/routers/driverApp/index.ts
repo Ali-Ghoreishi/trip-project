@@ -1,10 +1,10 @@
 import express from 'express';
 const router = express.Router();
 
-// import userRouter from './user';
+import driverRouter from './driver';
 import authRouter from './auth';
 
-// router.use('/app', userRouter);
+router.use('/app', driverRouter);
 router.use('/auth', authRouter);
 
 export default router;

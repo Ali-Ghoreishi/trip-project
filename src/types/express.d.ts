@@ -1,7 +1,7 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import { IUser } from '../db/models/User';
-// import { IPassenger } from '../db/models/Passenger';
-// import { ICar } from '../db/models/Car';
+import { IDriver } from '../db/models/Driver';
+import { IPassenger } from '../db/models/Passenger';
 
 declare global {
   namespace Express {

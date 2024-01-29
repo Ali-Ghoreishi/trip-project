@@ -17,6 +17,7 @@ import {
   IsNumber
 } from 'class-validator';
 import { CVIsMobile } from '../base';
+import { IUserInput } from '../../../db/models/User';
 
 export class LoginByUsernamePassword_validator {
   // @IsString({ message: 'username should be a string' })
@@ -24,13 +25,13 @@ export class LoginByUsernamePassword_validator {
   @MinLength(6, { message: '6' })
   @IsString()
   @IsNotEmpty()
-  username!: string;
+  username!: IUserInput['username'];
 
   @MaxLength(50, { message: '50' })
   @MinLength(8, { message: '8' })
   @IsString()
   @IsNotEmpty()
-  password!: string;
+  password!: IUserInput['password'];
 }
 
 export class LoginByMobileSendCode_validator {
@@ -39,7 +40,7 @@ export class LoginByMobileSendCode_validator {
   @MinLength(10, { message: '10' })
   @IsString()
   @IsNotEmpty()
-  mobile!: string;
+  mobile!: IUserInput['mobile'];
 }
 
 export class LoginByMobileVerifyCode_validator {
@@ -48,7 +49,7 @@ export class LoginByMobileVerifyCode_validator {
   @MinLength(10, { message: '10' })
   @IsString()
   @IsNotEmpty()
-  mobile!: string;
+  mobile!: IUserInput['mobile'];
 
   @IsNumber()
   @IsNotEmpty()
