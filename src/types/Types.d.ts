@@ -1,5 +1,6 @@
 declare module '*'; // to fix ts(7016) error
 import express, { Application, Request, Response, NextFunction } from 'express';
+import { Types } from 'mongoose';
 
 declare global {
   interface Error_ extends Error {
@@ -19,4 +20,5 @@ declare global {
     count: number;
     data: Array<any>;
   };
+  type ObjectId_ = Types.ObjectId
 }

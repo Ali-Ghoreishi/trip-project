@@ -16,7 +16,7 @@ router.use(authMiddleware.passenger); // Check Passenger Status - Verify JWT
 router.get('/passenger/dashboard', PassengerController.dashboard);
 
 //* Trip
-router.get('/trip/register', TripController.register);
+router.post('/trip/register', limiter, TripController.register);
 
 
 

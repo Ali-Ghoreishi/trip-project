@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import response from './responseHandler';
 import { formatDate_ } from './jalali';
 import { ICity } from '../db/models/City';
+import { findCity } from '../services/city';
 
 const Helper = {
   GetDatabaseURI: () => {
@@ -18,6 +19,46 @@ const Helper = {
     } else {
       return null;
     }
+  },
+
+  List: async (
+    model: any,
+    query: any[] = [],
+    options: { sortField: string; sortOrder: '1' | '-1'; page: string; limit: string } = {
+      sortField: '_id',
+      sortOrder: '-1',
+      page: '1',
+      limit: '15'
+    },
+    restructureFields: string[] = []
+  ) => {
+    //@ts-ignore
+    const result = await model.aggregate([
+      ...query,
+      {
+        $sort: { [`${options.sortField}`]: +options.sortOrder }
+      },
+      {
+        $facet: {
+          results: [
+            {
+              $skip: (+options.page - 1) * +options.limit
+            },
+            {
+              $limit: +options.limit
+            }
+          ],
+          totalCount: [
+            {
+              $count: 'count'
+            }
+          ]
+        }
+      }
+    ]);
+    const data = Helper.Aggr_Data(result);
+    if (restructureFields.length > 0) Helper.ArrToObj(data.data, restructureFields);
+    return data;
   },
 
   Gen_OrderID: (): string => {
@@ -387,13 +428,15 @@ const Helper = {
     return distance.toFixed();
   },
 
-  Trip_CalculateFare: (source: ICity, destination: ICity) => {
+  Trip_CalculateFare: async (source_id: Types.ObjectId, destination_id: Types.ObjectId) => {
     // const setting = await findSetting()
+    const source = await findCity({ _id: source_id });
+    const destination = await findCity({ _id: destination_id });
     const distanceKM = Helper.CalculateDistanceKM(
-      { lat: source.location.coordinates[1], long: source.location.coordinates[0] },
-      { lat: destination.location.coordinates[1], long: destination.location.coordinates[0] }
+      { lat: source!.location.coordinates[1], long: source!.location.coordinates[0] },
+      { lat: destination!.location.coordinates[1], long: destination!.location.coordinates[0] }
     );
-    const farePerKM = 3000; // setting.farePerKil
+    const farePerKM = 1000; // setting.farePerKil
     const fare = +distanceKM * farePerKM;
     return fare;
   }

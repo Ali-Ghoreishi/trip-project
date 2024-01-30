@@ -15,7 +15,6 @@ export const CarController = {
       const input = new RegisterByDriver_validator();
       Object.assign(input, req.body);
       const inputValidateErrors = await inputValidate(input);
-      // console.log(inputValidateErrors[0]);
       if (inputValidateErrors.length > 0) return response.validation(res, inputValidateErrors);
       input.plaque = { part1: input.plaquePart1, part2: input.plaquePart2 };
 

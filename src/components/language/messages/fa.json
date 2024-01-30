@@ -32,16 +32,14 @@
   "role": {
     "cantModifyAdminRole": "نقش ادمین قابل ویرایش نیست"
   },
-  "User": {
-    "User_Not_Found": "کاربری با مشخصات وارد شده پیدا نشد"
-  },
   "driver": {
     "alreadyRegisteredOwnCar": "خودروی شما در سیستم قبلا ثبت شده است"
   },
-  "Car": {
-    "Duplicate_Chassis": "شماره شاسی وارد شده قبلا ثبت شده است"                     
+  "passenger": {
+    "notEnoughCreditToRegisterTrip": "شما اعتبار کافی برای ثبت سفر ندارید",
+    "youCurrentlyHaveActiveTrip": "شما در حال حاضر سفر فعال دارید"
   },
-  "Transaction": {
+  "transaction": {
     "Not_Exist": "هیچ تراکنشی تا این لحظه وجود ندارد"
   },
   "server": {
@@ -94,6 +92,10 @@
   },
 
   "field": {
+    "page": "شماره صفحه",
+    "limit": "محدود",
+    "sortField": "فیلد مرتب سازی",
+    "sortOrder": "ترتیب مرتب سازی",
     "user": "کاربر",
     "driver": "راننده",
     "passenger": "مسافر",
@@ -108,6 +110,8 @@
     "service": "سرویس",
     "service_id": "سرویس",
     "chassis_number": "شماره شاسی",
-    "plaque": "پلاک"
+    "plaque": "پلاک",
+    "source": "مبدا",
+    "destination": "مقصد"
   }
 }

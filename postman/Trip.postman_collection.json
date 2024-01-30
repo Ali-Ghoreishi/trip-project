@@ -1,0 +1,1679 @@
+{
+	"info": {
+		"_postman_id": "5d594c0e-e273-4aaa-88e9-da5663411a35",
+		"name": "Trip",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Tests\" tab**\n\nTests help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/b5f280a7-4b09-48ec-857f-0a7ed99d7ef8/U2NyZWVuc2hvdCAyMDIzLTAzLTI3IGF0IDkuNDcuMjggUE0ucG5n\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) in \"Tests\" to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20478011"
+	},
+	"item": [
+		{
+			"name": "Test Server",
+			"item": [
+				{
+					"name": "Test Server",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3060",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3060"
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Portal",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "Login By Username Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"password\": \"11111111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localPortalAuth}}/login/username-password",
+									"host": [
+										"{{localPortalAuth}}"
+									],
+									"path": [
+										"login",
+										"username-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login By Mobile Send Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mobile\": \"09134437233\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localPortalAuth}}/login/mobile-send-code",
+									"host": [
+										"{{localPortalAuth}}"
+									],
+									"path": [
+										"login",
+										"mobile-send-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login By Mobile Verify Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mobile\": \"09134437233\",\r\n    \"code\": 112895\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localPortalAuth}}/login/mobile-verify-code",
+									"host": [
+										"{{localPortalAuth}}"
+									],
+									"path": [
+										"login",
+										"mobile-verify-code"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "app",
+					"item": [
+						{
+							"name": "car",
+							"item": [
+								{
+									"name": "List",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{portalJwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{localPortalApp}}/car/list?page=1&limit=15&sortField=_id&sortOrder=-1",
+											"host": [
+												"{{localPortalApp}}"
+											],
+											"path": [
+												"car",
+												"list"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "limit",
+													"value": "15"
+												},
+												{
+													"key": "sortField",
+													"value": "_id"
+												},
+												{
+													"key": "sortOrder",
+													"value": "-1"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "List",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{localPortalApp}}/car/list?page=1&limit=15&sortField=_id&sortOrder=-1",
+													"host": [
+														"{{localPortalApp}}"
+													],
+													"path": [
+														"car",
+														"list"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "1"
+														},
+														{
+															"key": "limit",
+															"value": "15"
+														},
+														{
+															"key": "sortField",
+															"value": "_id"
+														},
+														{
+															"key": "sortOrder",
+															"value": "-1"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Cache-Control",
+													"value": "no-cache"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "sessionid",
+													"value": ""
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Security-Policy",
+													"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+												},
+												{
+													"key": "Cross-Origin-Opener-Policy",
+													"value": "same-origin"
+												},
+												{
+													"key": "Cross-Origin-Resource-Policy",
+													"value": "same-origin"
+												},
+												{
+													"key": "Origin-Agent-Cluster",
+													"value": "?1"
+												},
+												{
+													"key": "Referrer-Policy",
+													"value": "no-referrer"
+												},
+												{
+													"key": "Strict-Transport-Security",
+													"value": "max-age=15552000; includeSubDomains"
+												},
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-DNS-Prefetch-Control",
+													"value": "off"
+												},
+												{
+													"key": "X-Download-Options",
+													"value": "noopen"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "SAMEORIGIN"
+												},
+												{
+													"key": "X-Permitted-Cross-Domain-Policies",
+													"value": "none"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "715"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"2cb-qyQCEcGZO0G+TFK5ThoXt8/b1Xk\""
+												},
+												{
+													"key": "Date",
+													"value": "Tue, 30 Jan 2024 12:02:01 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"message\": \"عملیات با موفقیت انجام شد\",\n    \"data\": {\n        \"count\": 1,\n        \"data\": [\n            {\n                \"_id\": \"65b77593e46b28010c4fedbe\",\n                \"ID\": \"1\",\n                \"driver_id\": \"65b0fd581274148a0653ebe3\",\n                \"service_id\": \"65b3a8db44bc2d97163a2f3b\",\n                \"model\": \"samand\",\n                \"chassis_number\": \"1234564321\",\n                \"color\": \"زرد\",\n                \"year\": 1396,\n                \"plaque\": {\n                    \"part1\": \"12F555\",\n                    \"part2\": \"24\"\n                },\n                \"photo_url\": \"file33.png\",\n                \"description\": \"car desc\",\n                \"extraData\": {\n                    \"creator_id\": \"65b0fd581274148a0653ebe3\",\n                    \"updater_id\": null,\n                    \"remover_id\": null,\n                    \"deletedAt\": null\n                },\n                \"status\": \"deactive\",\n                \"deleted\": false,\n                \"createdAt\": 1706522003392,\n                \"updatedAt\": 1706522003392,\n                \"__v\": 0,\n                \"driver_data\": {\n                    \"_id\": \"65b0fd581274148a0653ebe3\",\n                    \"ID\": \"1\",\n                    \"fullname\": \"driver_dv_1\",\n                    \"email\": \"driver1@gmail.com\",\n                    \"mobile\": \"09134437211\"\n                }\n            }\n        ]\n    }\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Driver",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "Register Send Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mobile\": \"9134437211\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localDriverAuth}}/register/send-code",
+									"host": [
+										"{{localDriverAuth}}"
+									],
+									"path": [
+										"register",
+										"send-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register Verify Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": 232323,\r\n    \"username\": \"driver1\",\r\n    \"password\": \"11111111\",\r\n    \"fullname\": \"driver_dv_1\",\r\n    \"email\": \"driver1@gmail.com\",\r\n    \"mobile\": \"9134437211\",\r\n    \"address\": \"iran-tehran\",\r\n    \"photo_url\": \"file1.png\",\r\n    \"description\": \"dv1 description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localDriverAuth}}/register/verify-code",
+									"host": [
+										"{{localDriverAuth}}"
+									],
+									"path": [
+										"register",
+										"verify-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login By Username Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"driver1\",\r\n    \"password\": \"11111111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localDriverAuth}}/login/username-password",
+									"host": [
+										"{{localDriverAuth}}"
+									],
+									"path": [
+										"login",
+										"username-password"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Login By Username Password",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"username\": \"driver1\",\r\n    \"password\": \"11111111\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{localDriverAuth}}/login/username-password",
+											"host": [
+												"{{localDriverAuth}}"
+											],
+											"path": [
+												"login",
+												"username-password"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Cache-Control",
+											"value": "no-cache"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "sessionid",
+											"value": ""
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Security-Policy",
+											"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Resource-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Origin-Agent-Cluster",
+											"value": "?1"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "no-referrer"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=15552000; includeSubDomains"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-DNS-Prefetch-Control",
+											"value": "off"
+										},
+										{
+											"key": "X-Download-Options",
+											"value": "noopen"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "X-Permitted-Cross-Domain-Policies",
+											"value": "none"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "RateLimit-Policy",
+											"value": "1;w=2"
+										},
+										{
+											"key": "RateLimit-Limit",
+											"value": "1"
+										},
+										{
+											"key": "RateLimit-Remaining",
+											"value": "0"
+										},
+										{
+											"key": "RateLimit-Reset",
+											"value": "2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "915"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"393-uRDULpoQU71m0MxHXPQDpIlaQp8\""
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Jan 2024 09:21:38 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"عملیات با موفقیت انجام شد\",\n    \"data\": {\n        \"driver\": {\n            \"phoneData\": {\n                \"model\": null,\n                \"ip\": null\n            },\n            \"extraData\": {\n                \"updater_id\": null,\n                \"remover_id\": null,\n                \"deletedAt\": null\n            },\n            \"_id\": \"65b0fd581274148a0653ebe3\",\n            \"ID\": \"1\",\n            \"car_id\": null,\n            \"username\": \"driver1\",\n            \"password\": \"$2b$10$GpijXmkHpnXQxZOWA1cS3uAGEVRsb/1l.6pdnFjutp0mzP4V8JK7u\",\n            \"fullname\": \"driver_dv_1\",\n            \"email\": \"driver1@gmail.com\",\n            \"mobile\": \"09134437211\",\n            \"address\": \"iran-tehran\",\n            \"ip\": null,\n            \"photo_url\": \"file1.png\",\n            \"description\": \"dv1 description\",\n            \"credit\": 0,\n            \"location\": null,\n            \"locationUpdatedAt\": null,\n            \"fcmToken\": null,\n            \"sessionid\": null,\n            \"status\": \"active\",\n            \"deleted\": false,\n            \"lastLoginAt\": null,\n            \"createdAt\": 1706098008443,\n            \"updatedAt\": 1706098008443,\n            \"__v\": 0\n        },\n        \"token\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdHlwZSI6ImRyaXZlciIsImlhdCI6MTcwNjI2MDg5OCwiZXhwIjoxNzM3Nzk2ODk4LCJzdWIiOiI2NWIwZmQ1ODEyNzQxNDhhMDY1M2ViZTMifQ.JeDVl3l4PN2DUjSTlfPptBfZdgTCklMaG2TbtgPCX8w\"\n        }\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Login By Mobile Send Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mobile\": \"09134437211\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localDriverAuth}}/login/mobile-send-code",
+									"host": [
+										"{{localDriverAuth}}"
+									],
+									"path": [
+										"login",
+										"mobile-send-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login By Mobile Verify Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mobile\": \"09134437211\",\r\n    \"code\": 706680\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localDriverAuth}}/login/mobile-verify-code",
+									"host": [
+										"{{localDriverAuth}}"
+									],
+									"path": [
+										"login",
+										"mobile-verify-code"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Login By Mobile Verify Code",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mobile\": \"09134437211\",\r\n    \"code\": 706680\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{localDriverAuth}}/login/mobile-verify-code",
+											"host": [
+												"{{localDriverAuth}}"
+											],
+											"path": [
+												"login",
+												"mobile-verify-code"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Cache-Control",
+											"value": "no-cache"
+										},
+										{
+											"key": "Pragma",
+											"value": "no-cache"
+										},
+										{
+											"key": "sessionid",
+											"value": ""
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Security-Policy",
+											"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+										},
+										{
+											"key": "Cross-Origin-Opener-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Cross-Origin-Resource-Policy",
+											"value": "same-origin"
+										},
+										{
+											"key": "Origin-Agent-Cluster",
+											"value": "?1"
+										},
+										{
+											"key": "Referrer-Policy",
+											"value": "no-referrer"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=15552000; includeSubDomains"
+										},
+										{
+											"key": "X-Content-Type-Options",
+											"value": "nosniff"
+										},
+										{
+											"key": "X-DNS-Prefetch-Control",
+											"value": "off"
+										},
+										{
+											"key": "X-Download-Options",
+											"value": "noopen"
+										},
+										{
+											"key": "X-Frame-Options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "X-Permitted-Cross-Domain-Policies",
+											"value": "none"
+										},
+										{
+											"key": "X-XSS-Protection",
+											"value": "0"
+										},
+										{
+											"key": "RateLimit-Policy",
+											"value": "1;w=2"
+										},
+										{
+											"key": "RateLimit-Limit",
+											"value": "1"
+										},
+										{
+											"key": "RateLimit-Remaining",
+											"value": "0"
+										},
+										{
+											"key": "RateLimit-Reset",
+											"value": "2"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "924"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"39c-CLwO5yHlNTOcp5M50QRAMQ0fAoQ\""
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Jan 2024 09:24:19 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"عملیات با موفقیت انجام شد\",\n    \"data\": {\n        \"driver\": {\n            \"phoneData\": {\n                \"model\": null,\n                \"ip\": null\n            },\n            \"extraData\": {\n                \"updater_id\": null,\n                \"remover_id\": null,\n                \"deletedAt\": null\n            },\n            \"_id\": \"65b0fd581274148a0653ebe3\",\n            \"ID\": \"1\",\n            \"car_id\": null,\n            \"username\": \"driver1\",\n            \"password\": \"$2b$10$GpijXmkHpnXQxZOWA1cS3uAGEVRsb/1l.6pdnFjutp0mzP4V8JK7u\",\n            \"fullname\": \"driver_dv_1\",\n            \"email\": \"driver1@gmail.com\",\n            \"mobile\": \"09134437211\",\n            \"address\": \"iran-tehran\",\n            \"ip\": null,\n            \"photo_url\": \"file1.png\",\n            \"description\": \"dv1 description\",\n            \"credit\": 0,\n            \"location\": null,\n            \"locationUpdatedAt\": null,\n            \"fcmToken\": null,\n            \"sessionid\": null,\n            \"status\": \"active\",\n            \"deleted\": false,\n            \"lastLoginAt\": 1706260898000,\n            \"createdAt\": 1706098008443,\n            \"updatedAt\": 1706260898779,\n            \"__v\": 0\n        },\n        \"token\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfdHlwZSI6ImRyaXZlciIsImlhdCI6MTcwNjI2MTA1OSwiZXhwIjoxNzM3Nzk3MDU5LCJzdWIiOiI2NWIwZmQ1ODEyNzQxNDhhMDY1M2ViZTMifQ.O7Rh_8TEaUtuUvTAnOknYMESF4n3VzPzU6KHV7-PyVE\"\n        }\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "app",
+					"item": [
+						{
+							"name": "driver",
+							"item": [
+								{
+									"name": "Dashboard",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{driverJwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{localDriverApp}}/driver/dashboard",
+											"host": [
+												"{{localDriverApp}}"
+											],
+											"path": [
+												"driver",
+												"dashboard"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "dashboard",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{localDriverApp}}/driver/dashboard",
+													"host": [
+														"{{localDriverApp}}"
+													],
+													"path": [
+														"driver",
+														"dashboard"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Cache-Control",
+													"value": "no-cache"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "sessionid",
+													"value": ""
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Security-Policy",
+													"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+												},
+												{
+													"key": "Cross-Origin-Opener-Policy",
+													"value": "same-origin"
+												},
+												{
+													"key": "Cross-Origin-Resource-Policy",
+													"value": "same-origin"
+												},
+												{
+													"key": "Origin-Agent-Cluster",
+													"value": "?1"
+												},
+												{
+													"key": "Referrer-Policy",
+													"value": "no-referrer"
+												},
+												{
+													"key": "Strict-Transport-Security",
+													"value": "max-age=15552000; includeSubDomains"
+												},
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-DNS-Prefetch-Control",
+													"value": "off"
+												},
+												{
+													"key": "X-Download-Options",
+													"value": "noopen"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "SAMEORIGIN"
+												},
+												{
+													"key": "X-Permitted-Cross-Domain-Policies",
+													"value": "none"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "1196"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"4ac-Mi/kitdnrTyqrUEBXoSj4X//tZA\""
+												},
+												{
+													"key": "Date",
+													"value": "Mon, 29 Jan 2024 11:16:24 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"message\": \"عملیات با موفقیت انجام شد\",\n    \"data\": {\n        \"driver\": {\n            \"phoneData\": {\n                \"model\": null,\n                \"ip\": null\n            },\n            \"extraData\": {\n                \"updater_id\": null,\n                \"remover_id\": null,\n                \"deletedAt\": null\n            },\n            \"_id\": \"65b0fd581274148a0653ebe3\",\n            \"ID\": \"1\",\n            \"car_id\": {\n                \"plaque\": {\n                    \"part1\": \"12F555\",\n                    \"part2\": \"24\"\n                },\n                \"extraData\": {\n                    \"creator_id\": \"65b0fd581274148a0653ebe3\",\n                    \"updater_id\": null,\n                    \"remover_id\": null,\n                    \"deletedAt\": null\n                },\n                \"_id\": \"65b77593e46b28010c4fedbe\",\n                \"ID\": \"1\",\n                \"driver_id\": \"65b0fd581274148a0653ebe3\",\n                \"service_id\": \"65b3a8db44bc2d97163a2f3b\",\n                \"model\": \"samand\",\n                \"chassis_number\": \"1234564321\",\n                \"color\": \"زرد\",\n                \"year\": 1396,\n                \"photo_url\": \"file33.png\",\n                \"description\": \"car desc\",\n                \"status\": \"deactive\",\n                \"deleted\": false,\n                \"createdAt\": 1706522003392,\n                \"updatedAt\": 1706522003392,\n                \"__v\": 0\n            },\n            \"username\": \"driver1\",\n            \"password\": \"$2b$10$GpijXmkHpnXQxZOWA1cS3uAGEVRsb/1l.6pdnFjutp0mzP4V8JK7u\",\n            \"fullname\": \"driver_dv_1\",\n            \"email\": \"driver1@gmail.com\",\n            \"mobile\": \"09134437211\",\n            \"address\": \"iran-tehran\",\n            \"ip\": null,\n            \"photo_url\": \"file1.png\",\n            \"description\": \"dv1 description\",\n            \"credit\": 0,\n            \"location\": null,\n            \"locationUpdatedAt\": null,\n            \"fcmToken\": null,\n            \"sessionid\": null,\n            \"status\": \"active\",\n            \"deleted\": false,\n            \"lastLoginAt\": 1706519022000,\n            \"createdAt\": 1706098008443,\n            \"updatedAt\": 1706522003403,\n            \"__v\": 0\n        }\n    }\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "car",
+							"item": [
+								{
+									"name": "Register",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{driverJwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"service_id\": \"65b3a8db44bc2d97163a2f3b\",\r\n    \"model\": \"samand\",\r\n    \"chassis_number\": \"1234564321\",\r\n    \"color\": \"زرد\",\r\n    \"year\": 1396,\r\n    \"plaquePart1\": \"12F555\",\r\n    \"plaquePart2\": \"24\",\r\n    \"photo_url\": \"file33.png\",\r\n    \"description\": \"car desc\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{localDriverApp}}/car/register",
+											"host": [
+												"{{localDriverApp}}"
+											],
+											"path": [
+												"car",
+												"register"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "register",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"service_id\": \"65b3a8db44bc2d97163a2f3b\",\r\n    \"model\": \"samand\",\r\n    \"chassis_number\": \"1234564321\",\r\n    \"color\": \"زرد\",\r\n    \"year\": 1396,\r\n    \"plaquePart1\": \"12F555\",\r\n    \"plaquePart2\": \"24\",\r\n    \"photo_url\": \"file33.png\",\r\n    \"description\": \"car desc\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{localDriverApp}}/car/register",
+													"host": [
+														"{{localDriverApp}}"
+													],
+													"path": [
+														"car",
+														"register"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Cache-Control",
+													"value": "no-cache"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "sessionid",
+													"value": ""
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Security-Policy",
+													"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+												},
+												{
+													"key": "Cross-Origin-Opener-Policy",
+													"value": "same-origin"
+												},
+												{
+													"key": "Cross-Origin-Resource-Policy",
+													"value": "same-origin"
+												},
+												{
+													"key": "Origin-Agent-Cluster",
+													"value": "?1"
+												},
+												{
+													"key": "Referrer-Policy",
+													"value": "no-referrer"
+												},
+												{
+													"key": "Strict-Transport-Security",
+													"value": "max-age=15552000; includeSubDomains"
+												},
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-DNS-Prefetch-Control",
+													"value": "off"
+												},
+												{
+													"key": "X-Download-Options",
+													"value": "noopen"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "SAMEORIGIN"
+												},
+												{
+													"key": "X-Permitted-Cross-Domain-Policies",
+													"value": "none"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "RateLimit-Policy",
+													"value": "1;w=2"
+												},
+												{
+													"key": "RateLimit-Limit",
+													"value": "1"
+												},
+												{
+													"key": "RateLimit-Remaining",
+													"value": "0"
+												},
+												{
+													"key": "RateLimit-Reset",
+													"value": "2"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "555"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"22b-e+yGMg8TWYReBtR3X0U376M1fUY\""
+												},
+												{
+													"key": "Date",
+													"value": "Mon, 29 Jan 2024 09:53:23 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"message\": \"با موفقیت ایجاد شد\",\n    \"data\": {\n        \"car\": {\n            \"ID\": \"1\",\n            \"driver_id\": \"65b0fd581274148a0653ebe3\",\n            \"service_id\": \"65b3a8db44bc2d97163a2f3b\",\n            \"model\": \"samand\",\n            \"chassis_number\": \"1234564321\",\n            \"color\": \"زرد\",\n            \"year\": 1396,\n            \"plaque\": {\n                \"part1\": \"12F555\",\n                \"part2\": \"24\"\n            },\n            \"photo_url\": \"file33.png\",\n            \"description\": \"car desc\",\n            \"extraData\": {\n                \"creator_id\": \"65b0fd581274148a0653ebe3\",\n                \"updater_id\": null,\n                \"remover_id\": null,\n                \"deletedAt\": null\n            },\n            \"status\": \"deactive\",\n            \"deleted\": false,\n            \"_id\": \"65b77593e46b28010c4fedbe\",\n            \"createdAt\": 1706522003392,\n            \"updatedAt\": 1706522003392,\n            \"__v\": 0\n        }\n    }\n}"
+										}
+									]
+								},
+								{
+									"name": "Get",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{driverJwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{localDriverApp}}/car/get",
+											"host": [
+												"{{localDriverApp}}"
+											],
+											"path": [
+												"car",
+												"get"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "get",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{localDriverApp}}/car/get",
+													"host": [
+														"{{localDriverApp}}"
+													],
+													"path": [
+														"car",
+														"get"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Cache-Control",
+													"value": "no-cache"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "sessionid",
+													"value": ""
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Security-Policy",
+													"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+												},
+												{
+													"key": "Cross-Origin-Opener-Policy",
+													"value": "same-origin"
+												},
+												{
+													"key": "Cross-Origin-Resource-Policy",
+													"value": "same-origin"
+												},
+												{
+													"key": "Origin-Agent-Cluster",
+													"value": "?1"
+												},
+												{
+													"key": "Referrer-Policy",
+													"value": "no-referrer"
+												},
+												{
+													"key": "Strict-Transport-Security",
+													"value": "max-age=15552000; includeSubDomains"
+												},
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-DNS-Prefetch-Control",
+													"value": "off"
+												},
+												{
+													"key": "X-Download-Options",
+													"value": "noopen"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "SAMEORIGIN"
+												},
+												{
+													"key": "X-Permitted-Cross-Domain-Policies",
+													"value": "none"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "568"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"238-K70LSsH5AyEk/OrnX8C3N05jm+A\""
+												},
+												{
+													"key": "Date",
+													"value": "Mon, 29 Jan 2024 11:06:19 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"message\": \"عملیات با موفقیت انجام شد\",\n    \"data\": {\n        \"car\": {\n            \"plaque\": {\n                \"part1\": \"12F555\",\n                \"part2\": \"24\"\n            },\n            \"extraData\": {\n                \"creator_id\": \"65b0fd581274148a0653ebe3\",\n                \"updater_id\": null,\n                \"remover_id\": null,\n                \"deletedAt\": null\n            },\n            \"_id\": \"65b77593e46b28010c4fedbe\",\n            \"ID\": \"1\",\n            \"driver_id\": \"65b0fd581274148a0653ebe3\",\n            \"service_id\": \"65b3a8db44bc2d97163a2f3b\",\n            \"model\": \"samand\",\n            \"chassis_number\": \"1234564321\",\n            \"color\": \"زرد\",\n            \"year\": 1396,\n            \"photo_url\": \"file33.png\",\n            \"description\": \"car desc\",\n            \"status\": \"deactive\",\n            \"deleted\": false,\n            \"createdAt\": 1706522003392,\n            \"updatedAt\": 1706522003392,\n            \"__v\": 0\n        }\n    }\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Passenger",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "Register Send Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mobile\": \"09134437777\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localPassengerAuth}}/register/send-code",
+									"host": [
+										"{{localPassengerAuth}}"
+									],
+									"path": [
+										"register",
+										"send-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register Verify Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\": 247401,\r\n    \"username\": \"passenger1\",\r\n    \"password\": \"11111111\",\r\n    \"fullname\": \"passenger_pr_1\",\r\n    \"email\": \"passenger1@gmail.com\",\r\n    \"mobile\": \"09134437222\",\r\n    \"address\": \"iran-tehran\",\r\n    \"photo_url\": \"file1.png\",\r\n    \"description\": \"pr1 description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localPassengerAuth}}/register/verify-code",
+									"host": [
+										"{{localPassengerAuth}}"
+									],
+									"path": [
+										"register",
+										"verify-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login By Username Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"passenger1\",\r\n    \"password\": \"11111111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localPassengerAuth}}/login/username-password",
+									"host": [
+										"{{localPassengerAuth}}"
+									],
+									"path": [
+										"login",
+										"username-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login By Mobile Send Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mobile\": \"09134437211\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localPassengerAuth}}/login/mobile-send-code",
+									"host": [
+										"{{localPassengerAuth}}"
+									],
+									"path": [
+										"login",
+										"mobile-send-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login By Mobile Verify Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mobile\": \"09134437211\",\r\n    \"code\": 706680\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localPassengerAuth}}/login/mobile-verify-code",
+									"host": [
+										"{{localPassengerAuth}}"
+									],
+									"path": [
+										"login",
+										"mobile-verify-code"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "app",
+					"item": [
+						{
+							"name": "passenger",
+							"item": [
+								{
+									"name": "Dashboard",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{passengerJwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{localPassengerApp}}/passenger/dashboard",
+											"host": [
+												"{{localPassengerApp}}"
+											],
+											"path": [
+												"passenger",
+												"dashboard"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "dashboard",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{localPassengerApp}}/passenger/dashboard",
+													"host": [
+														"{{localPassengerApp}}"
+													],
+													"path": [
+														"passenger",
+														"dashboard"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Cache-Control",
+													"value": "no-cache"
+												},
+												{
+													"key": "Pragma",
+													"value": "no-cache"
+												},
+												{
+													"key": "sessionid",
+													"value": ""
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Security-Policy",
+													"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+												},
+												{
+													"key": "Cross-Origin-Opener-Policy",
+													"value": "same-origin"
+												},
+												{
+													"key": "Cross-Origin-Resource-Policy",
+													"value": "same-origin"
+												},
+												{
+													"key": "Origin-Agent-Cluster",
+													"value": "?1"
+												},
+												{
+													"key": "Referrer-Policy",
+													"value": "no-referrer"
+												},
+												{
+													"key": "Strict-Transport-Security",
+													"value": "max-age=15552000; includeSubDomains"
+												},
+												{
+													"key": "X-Content-Type-Options",
+													"value": "nosniff"
+												},
+												{
+													"key": "X-DNS-Prefetch-Control",
+													"value": "off"
+												},
+												{
+													"key": "X-Download-Options",
+													"value": "noopen"
+												},
+												{
+													"key": "X-Frame-Options",
+													"value": "SAMEORIGIN"
+												},
+												{
+													"key": "X-Permitted-Cross-Domain-Policies",
+													"value": "none"
+												},
+												{
+													"key": "X-XSS-Protection",
+													"value": "0"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "655"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"28f-0ILGbpcDJpiwcl3/Rg7DzQzJmD4\""
+												},
+												{
+													"key": "Date",
+													"value": "Mon, 29 Jan 2024 11:30:55 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"message\": \"عملیات با موفقیت انجام شد\",\n    \"data\": {\n        \"passenger\": {\n            \"phoneData\": {\n                \"model\": null,\n                \"ip\": null\n            },\n            \"extraData\": {\n                \"updater_id\": null,\n                \"remover_id\": null,\n                \"deletedAt\": null\n            },\n            \"_id\": \"65b383853b1d4a039f6e5052\",\n            \"ID\": \"1\",\n            \"username\": \"passenger1\",\n            \"password\": \"$2b$10$1TCz8E2YrW5EbKKHkNu/OOGjpCfrk0fDI7c55b4Gdd7oXU/B0yn.C\",\n            \"fullname\": \"passenger_pr_1\",\n            \"email\": \"passenger1@gmail.com\",\n            \"mobile\": \"09134437222\",\n            \"photo_url\": \"file1.png\",\n            \"description\": \"pr1 description\",\n            \"location\": null,\n            \"locationUpdatedAt\": null,\n            \"credit\": 0,\n            \"fcmToken\": null,\n            \"status\": \"active\",\n            \"deleted\": false,\n            \"lastLoginAt\": 1706527828000,\n            \"createdAt\": 1706263429833,\n            \"updatedAt\": 1706527828694,\n            \"__v\": 0\n        }\n    }\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "trip",
+							"item": [
+								{
+									"name": "Register",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{passengerJwt}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"service\": \"65b3a8db44bc2d97163a2f3b\",\r\n  \"source\": \"65b3a8e0843fce459feb0a25\",  \r\n  \"destination\": \"65b3a8e0843fce459feb0a24\",\r\n  \"description\": \"pet\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{localPassengerApp}}/trip/register",
+											"host": [
+												"{{localPassengerApp}}"
+											],
+											"path": [
+												"trip",
+												"register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "test",
+					"item": [
+						{
+							"name": "post",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localCommon}}/test",
+									"host": [
+										"{{localCommon}}"
+									],
+									"path": [
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{localCommon}}/test",
+									"host": [
+										"{{localCommon}}"
+									],
+									"path": [
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localCommon",
+			"value": "http://localhost:3060/api/common",
+			"type": "string"
+		},
+		{
+			"key": "localPortalApp",
+			"value": "http://localhost:3060/api/portal/app"
+		},
+		{
+			"key": "localPortalAuth",
+			"value": "http://localhost:3060/api/portal/auth",
+			"type": "string"
+		},
+		{
+			"key": "localDriverAuth",
+			"value": "http://localhost:3060/api/driver-app/auth",
+			"type": "string"
+		},
+		{
+			"key": "localDriverApp",
+			"value": "http://localhost:3060/api/driver-app/app",
+			"type": "string"
+		},
+		{
+			"key": "localPassengerAuth",
+			"value": "http://localhost:3060/api/passenger-app/auth",
+			"type": "string"
+		},
+		{
+			"key": "localPassengerApp",
+			"value": "http://localhost:3060/api/passenger-app/app",
+			"type": "string"
+		},
+		{
+			"key": "portalJwt",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "driverJwt",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "passengerJwt",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -4,6 +4,7 @@ import { ICity } from './City';
 import { IPassenger } from './Passenger';
 import { IDriver } from './Driver';
 import { ICar } from './Car';
+import { IService } from './Service';
 
 export enum TripStatusEnum {
   findDriver = 'findDriver',
@@ -19,8 +20,10 @@ export enum TripStatusEnum {
 export interface ITripInput {
   ID?: string;
   passenger_id: Types.ObjectId | IPassenger;
+  service: Types.ObjectId | IService;
   source: Types.ObjectId | ICity;
   destination: Types.ObjectId | ICity;
+  price: number;
   status: TripStatusEnum;
   description: string;
 }
@@ -29,7 +32,6 @@ export interface ITrip extends ITripInput {
   _id: Types.ObjectId;
   driver_id: Types.ObjectId | IDriver;
   car_id: Types.ObjectId | ICar;
-  price: number;
   deleted: boolean;
   createdAt: number;
   updatedAt: number;
@@ -63,6 +65,11 @@ const tripSchema = new Schema<ITrip>(
       ref: 'Car',
       default: null
     },
+    service: {
+      type: Schema.Types.ObjectId,
+      ref: 'Service',
+      default: null
+    },
     source: {
       type: Schema.Types.ObjectId,
       ref: 'City',
@@ -71,6 +78,10 @@ const tripSchema = new Schema<ITrip>(
     destination: {
       type: Schema.Types.ObjectId,
       ref: 'City',
+      default: null
+    },
+    price: {
+      type: Number,
       default: null
     },
     status: {

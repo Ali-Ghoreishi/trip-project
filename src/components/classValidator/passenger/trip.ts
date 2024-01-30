@@ -23,11 +23,15 @@ import { ITripInput } from '../../../db/models/Trip';
 export class Register_validator {
   @IsMongoId()
   @IsNotEmpty()
-  source!: ITripInput['source'];
+  service!: ObjectId_;
 
   @IsMongoId()
   @IsNotEmpty()
-  destination!: ITripInput['destination'];
+  source!: ObjectId_;
+
+  @IsMongoId()
+  @IsNotEmpty()
+  destination!: ObjectId_;
 
   @MaxLength(300, { message: '300' })
   @MinLength(1, { message: '1' })

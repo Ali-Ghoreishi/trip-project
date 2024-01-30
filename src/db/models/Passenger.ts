@@ -31,6 +31,7 @@ export interface IPassengerInput {
 export interface IPassenger extends IPassengerInput {
   _id: Types.ObjectId;
   credit: number;
+  deposit: number;
   fcmToken: string;
   deleted: boolean;
   lastLoginAt: number;
@@ -49,7 +50,7 @@ const passengerSchema = new Schema<IPassenger>(
       type: String,
       trim: true,
       maxlength: 255,
-      unique: true,
+      unique: true
     },
     username: {
       type: String,
@@ -112,6 +113,10 @@ const passengerSchema = new Schema<IPassenger>(
       }
     },
     credit: {
+      type: Number,
+      default: 0
+    },
+    deposit: {
       type: Number,
       default: 0
     },
