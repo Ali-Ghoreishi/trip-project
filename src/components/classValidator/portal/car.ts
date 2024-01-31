@@ -4,7 +4,7 @@ import {
   Contains,
   IsEmpty,
   IsNotEmpty,
-    IsString,
+  IsString,
   IsNumberString,
   IsInt,
   Length,
@@ -17,10 +17,13 @@ import {
   MaxLength,
   IsNumber,
   IsPositive,
-  IsIn
+  IsIn,
+  IsMongoId
 } from 'class-validator';
 import { CVIsMobile } from '../base';
 import { IUserInput } from '../../../db/models/User';
+import { StatusEnum } from '../../../types/custom/enum';
+import { ICarInput } from '../../../db/models/Car';
 
 export class List_validator {
   @IsNumberString()
@@ -38,5 +41,15 @@ export class List_validator {
   @IsIn(['1', '-1'])
   @IsString()
   @IsNotEmpty()
-  sortOrder!: '1' | '-1'
+  sortOrder!: '1' | '-1';
+}
+
+export class Update_validator {
+  @IsMongoId()
+  @IsNotEmpty()
+  id!: ObjectId_;
+
+  @IsIn([StatusEnum.active, StatusEnum.deactive])
+  @IsNotEmpty()
+  status!: ICarInput['status'];
 }

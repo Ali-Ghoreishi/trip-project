@@ -24,6 +24,10 @@ export default class ResponseHandler {
     const errorKeyArray = ['cvLength', 'minLength', 'maxLength', 'min', 'max'];
     if (errorKeyArray.includes(firstKey)) {
       message = res.t(`classValidator.${firstKey}`, { name: res.t(`field.${errors[0].property}`), value: firstValue });
+    } else if (firstKey === 'isIn') {
+      const colonIndex = (firstValue as string).indexOf(':');
+      const value = (firstValue as string).slice(colonIndex + 1).trim();
+      message = res.t(`classValidator.${firstKey}`, { value: value });
     }
     return res.status(400).json({
       message: message,
