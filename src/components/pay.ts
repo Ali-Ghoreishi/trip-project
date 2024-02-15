@@ -20,6 +20,17 @@ type PaymentData = {
   ip: string;
 };
 
+type VerifyData = {
+  id: string,
+  order_id: string,
+};
+
+type InquiryData = {
+  id: string;
+  order_id: string;
+};
+
+
 const urls = {
   callback: process.env.PAYMENT_CALLBACK_URL,
   payment: 'https://api.idpay.ir/v1.1/payment',
@@ -87,7 +98,7 @@ const Pay = {
   },
 
   // step 2
-  verify: async (verifyData: any) => {
+  verify: async (verifyData: VerifyData) => {
     try {
       const req_data = {
         id: verifyData.id,
@@ -109,7 +120,7 @@ const Pay = {
   },
 
   // step 3 - optional
-  inquiry: async (inquiryData: any) => {
+  inquiry: async (inquiryData: InquiryData) => {
     try {
       const req_data = {
         id: inquiryData.id,
