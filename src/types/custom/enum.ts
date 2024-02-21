@@ -9,3 +9,14 @@ export enum StatusEnum {
   blocked = 'blocked'
 }
 
+export enum RabbitMQExchangeNameEnum {
+  trip = 'trip'
+}
+
+export enum RabbitMQQueueNameEnum {
+  trip_queue = 'trip_queue'
+}
+
+export enum RabbitMQRoutingKeyEnum {
+  trip_routing_key = 'trip_routing_key'
+}

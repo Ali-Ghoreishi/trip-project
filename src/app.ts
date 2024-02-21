@@ -12,7 +12,10 @@ require('./components/language/index');
 import localizify, { t as localizifyT } from 'localizify';
 import { connectDB } from './db/config/connection';
 // import { cronJobFunc } from './components/cronJobs';
+import swaggerDocs from './routers/swagger';
 import { initSocket } from './socket/listener';
+import { initializeRabbitMQ } from './middlewares/rabbitMQMiddleware';
+
 
 //* Configs
 dotenv.config();
@@ -37,6 +40,10 @@ app.use(
 
 //* CronJobs
 // cronJobFunc();
+
+//* Set up RabbitMQ
+initializeRabbitMQ()
+  
 
 //* Middlewares
 app.use((req: Request, res: Response, next) => {
@@ -109,5 +116,7 @@ const PORT = process.env.APP_PORT || 3060;
 export const server = app.listen(PORT, async () => {
   console.log('Server start listening on: ', server.address());
 });
+
+swaggerDocs(app);
 
 initSocket();
