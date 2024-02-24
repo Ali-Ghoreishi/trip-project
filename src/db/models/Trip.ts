@@ -115,5 +115,16 @@ const tripSchema = new Schema<ITrip>(
 
 //* Index
 
+//* Mongoose Middlewares
+//@ts-ignore
+tripSchema.pre('save', async function (next) {
+  // 'this' refers to the model
+  // 'doc' is the newly created document
+  if (this.isNew) {
+    
+  }
+  next()
+});
+
 const Trip = model<ITrip>('Trip', tripSchema);
 export default Trip;

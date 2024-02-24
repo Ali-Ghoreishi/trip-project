@@ -15,6 +15,7 @@ Installation requirements :
    - Nodejs
    - MongoDB
    - Redis Database
+   - RabbitMQ
 
 ```
 

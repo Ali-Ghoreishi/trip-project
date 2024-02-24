@@ -8,19 +8,25 @@ import { createUser, findUsers } from '../../services/user';
 import { AuthHandler } from '../../components/auth';
 import { LoginByMobileSendCode_validator } from '../../components/classValidator/portal/auth';
 import RabbitMQSetup from '../../components/messageBroker';
+import { findAndUpdateTrip, findTrip } from '../../services/trip';
 
 const rabbitMQSetup = new RabbitMQSetup();
 
 export const testController = {
   post: async (req: Request, res: Response) => {
     try {
-      // Set up RabbitMQ
-      const channel = await rabbitMQSetup.setup();
-      // Construct the message to be sent
-      const message = { id: 1, name: 'New trip registered' };
+      // // Set up RabbitMQ
+      // const channel = await rabbitMQSetup.setup();
+      // // Construct the message to be sent
+      // const message = { id: 1, name: 'New trip registered' };
 
-      // Publish the message to RabbitMQ
-      await rabbitMQSetup.sendMessage(undefined, undefined, RabbitMQRoutingKeyEnum.trip_routing_key, message);
+      // // Publish the message to RabbitMQ
+      // await rabbitMQSetup.sendMessage(undefined, undefined, RabbitMQRoutingKeyEnum.trip_routing_key, message);
+
+      // const trip = await findTrip({ ID: '1' });
+      // trip!.description = 'new pet'
+      // await trip!.save()
+      // await findAndUpdateTrip({ ID: '1' }, { description: 'pet ---' });
       return response.success(res, {}, 'ok');
     } catch (error) {
       return response.catchError(res, error);
